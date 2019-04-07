@@ -7,9 +7,11 @@ const Todo = ({ todo: { text, completed }, onClick}) => (
   </div>
 )
 
-const TodoList = ({ todos }) => (
+const TodoList = ({ todos, toggleCompleted }) => (
   <div className="todos">
-    {todos.map((todo, index) => <Todo key={index} todo={todo} />)}
+    {todos.map((todo, index) => (
+    <Todo key={index} todo={todo} onClick={() => toggleCompleted(todo)} />
+    ))}
   </div>
 )
 
@@ -29,19 +31,28 @@ const TodoForm = ({ onSubmit }) => {
   )
 }
 
+const Title = ({ text }) => (<h1>{text}</h1>)
+
 const App = () => {
 
   const [todos, setTodos] = useState([
-    { text: 'Learn React', completed: true },
-    { text: 'Learn Redux', completed: true },
-    { text: 'Learn Redux with React', completed: true },
-    { text: 'Learn React Hooks', completed: false },
+    { _id: 1, text: 'Learn React', completed: true },
+    { _id: 2, text: 'Learn Redux', completed: true },
+    { _id: 3, text: 'Learn Redux with React', completed: true },
+    { _id: 4, text: 'Learn React Hooks', completed: false },
   ])
 
   return (
     <div className="App">
-      <h1>Todo list</h1>
-      <TodoList todos={todos}/>
+      <Title text="Todo list"/>
+      <TodoList todos={todos} toggleCompleted={todo => {
+        setTodos(todos.map(t => ({
+          ...t,
+          completed: t._id === todo._id
+          ? !t.completed :
+          t.completed
+        })))
+      }}/>
       <TodoForm onSubmit={text => setTodos([...todos, { text, completed: false }])}/>
     </div>
   )
