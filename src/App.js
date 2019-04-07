@@ -1,28 +1,40 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const todos = [
+  { text: 'Learn React', completed: true },
+  { text: 'Learn Redux', completed: true },
+  { text: 'Learn Redux with React', completed: true },
+  { text: 'Learn React Hooks', completed: false },
+]
+
+const Todo = ({ todo: { text, completed }, onClick}) => (
+  <div className={`todo ${completed ? 'completed' : ''}`} onClick={onClick}>
+    <h2>{text}</h2>
+  </div>
+)
+
+const TodoList = ({ todos }) => (
+  <div className="todos">
+    {todos.map((todo, index) => <Todo key={index} todo={todo} />)}
+  </div>
+)
+
+const TodoForm = ({ onSubmit }) => (
+  <form onSubmit={onSubmit}>
+    <input placeholder="text"/>
+    <button type="submit">Add</button>
+  </form>
+)
+
+const App = () => {
+  return (
+    <div className="App">
+      <h1>Todo list</h1>
+      <TodoList todos={todos}/>
+      <TodoForm/>
+    </div>
+  )
 }
 
 export default App;
