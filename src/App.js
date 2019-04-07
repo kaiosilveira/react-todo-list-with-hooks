@@ -20,12 +20,18 @@ const TodoList = ({ todos }) => (
   </div>
 )
 
-const TodoForm = ({ onSubmit }) => (
-  <form onSubmit={onSubmit}>
-    <input placeholder="text"/>
-    <button type="submit">Add</button>
-  </form>
-)
+const TodoForm = ({ onSubmit }) => {
+  const 
+  return (
+    <form onSubmit={e => {
+      e.preventDefault()
+      onSubmit()
+    }}>
+      <input placeholder="text"/>
+      <button type="submit">Add</button>
+    </form>
+  )
+}
 
 const App = () => {
   return (
