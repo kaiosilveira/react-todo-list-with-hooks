@@ -4,6 +4,8 @@ import TodoList from './components/todo-list/TodoList'
 import TodoForm from './components/todo-form/TodoForm'
 import * as API from './API'
 import './App.css'
+import { Provider } from 'react-redux'
+import store from './redux'
 
 const App = () => {
 
@@ -23,9 +25,11 @@ const App = () => {
 
   return (
     <div className="App">
+      <Provider store={store}>
       <Title text="Todo list"/>
       <TodoList todos={todos} toggleCompleted={handleToggleCompleted}/>
       <TodoForm onSubmit={handleAddTodo}/>
+      </Provider>
     </div>
   )
 }
