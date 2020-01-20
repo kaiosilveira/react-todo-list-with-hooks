@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listTodos, addTodo as addTodoAction, updateTodo } from '../redux'
+import { listTodos, addTodo as addTodoAction, updateTodo } from '../redux/todos'
 
 function usetodos() {
   const dispatch = useDispatch()
