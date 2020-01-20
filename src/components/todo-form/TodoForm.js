@@ -1,24 +1,21 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import useTodos from '../../custom-hooks/use-todos'
 
-const TodoForm = ({ onSubmit }) => {
-    const [text, setText] = useState('')
-    return (
-      <form onSubmit={e => {
+const TodoForm = () => {
+  const { addTodo } = useTodos()
+  const [text, setText] = useState('')
+  return (
+    <form
+      onSubmit={e => {
         e.preventDefault()
-        onSubmit(text)
+        addTodo(text)
         setText('')
-      }}>
-        <input onChange={e => setText(e.target.value)}
-          value={text} placeholder="text"
-        />
-        <button type="submit">Add</button>
-      </form>
-    )
-}
-
-TodoForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+      }}
+    >
+      <input onChange={e => setText(e.target.value)} value={text} placeholder='text' />
+      <button type='submit'>Add</button>
+    </form>
+  )
 }
 
 export default TodoForm

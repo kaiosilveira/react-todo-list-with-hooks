@@ -2,13 +2,13 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { listTodos, addTodo as addTodoAction, updateTodo } from '../redux/todos'
 
-function usetodos() {
+function useTodos() {
   const dispatch = useDispatch()
   const todos = useSelector(({ todos }) => todos)
 
   useEffect(() => {
     dispatch(listTodos())
-  })
+  }, [])
 
   const addTodo = text => dispatch(addTodoAction(text))
 
@@ -17,7 +17,7 @@ function usetodos() {
     dispatch(updateTodo({ ...target, completed: !target.completed }))
   }
 
-  return [todos, addTodo, toggleCompleted]
+  return { todos, addTodo, toggleCompleted }
 }
 
-export default usetodos
+export default useTodos
