@@ -7,12 +7,14 @@ import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { listTodos } from './redux'
 
+function usetodos() {
+  const [todos, _] = useSelector(({ todos }) => todos)
+  return todos
+}
+
 const App = () => {
   const dispatch = useDispatch()
-  const [reduxTodos, setReduxTodos] = useSelector(state => {
-    console.log(`state`, state)
-    return state.todos
-  })
+  const reduxTodos = usetodos()
   console.log(reduxTodos)
 
   useEffect(() => {
