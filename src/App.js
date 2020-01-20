@@ -5,36 +5,28 @@ import TodoForm from './components/todo-form/TodoForm'
 import * as API from './API'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { listTodos } from './redux'
+import { listTodos, addTodo, updateTodo } from './redux'
 
 function usetodos() {
-  const [todos, _] = useSelector(({ todos }) => todos)
+  const dispatch = useDispatch()
+  const todos = useSelector(({ todos }) => todos)
   return todos
 }
 
 const App = () => {
   const dispatch = useDispatch()
-  const reduxTodos = usetodos()
-  console.log(reduxTodos)
+  const todos = usetodos()
+  console.log(todos)
 
   useEffect(() => {
     dispatch(listTodos())
   }, [])
 
-  useEffect(() => {
-    API.listTodos().then(todos => setTodos(todos))
-  }, [])
-
-  const [todos, setTodos] = useState([])
-
   const handleToggleCompleted = todo => {
-    API.updateTodo({ ...todo, completed: !todo.completed }).then(todo =>
-      setTodos(todos.map(t => (t._id === todo._id ? todo : t)))
-    )
+    dispatch(updateTodo({ ...todo, completed: !todo.completed }))
   }
 
-  const handleAddTodo = text =>
-    API.addTodo({ text, completed: false }).then(todo => setTodos([...todos, todo]))
+  const handleAddTodo = text => dispatch(addTodo(text))
 
   return (
     <div className='App'>
