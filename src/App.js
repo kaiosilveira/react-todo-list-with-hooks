@@ -9,9 +9,12 @@ import { listTodos } from './redux'
 
 const App = () => {
   const dispatch = useDispatch()
-  const [reduxTodos, setReduxTodos] = useSelector(({ todos }) => ({ todos }))
+  const [reduxTodos, setReduxTodos] = useSelector(state => {
+    console.log(`state`, state)
+    return state.todos
+  })
   console.log(reduxTodos)
-  
+
   useEffect(() => {
     dispatch(listTodos())
   }, [])
